@@ -13,7 +13,12 @@ jobs:
       - run: npm run -w @natewilcox/zelda-shared build
       - run: npm run -w @natewilcox/zelda-client build
       - run: npm run -w @natewilcox/zelda-server build
-      - run: ls -la ./apps/zelda-server
+
+      - name: Set up .npmrc file to publish to npm
+        run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish Server to NPM
         run: cd ./apps/zelda-server && npm publish --access public
         env:
