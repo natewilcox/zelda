@@ -1,0 +1,60 @@
+name: Build and Deploy
+on: [push, pull_request]
+
+jobs:
+  npm-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run -w @natewilcox/zelda-shared build
+      - run: npm run -w @natewilcox/zelda-client build
+      - run: npm run -w @natewilcox/zelda-server build
+
+      - name: Publish Server to NPM
+        run: cd ./apps/zelda-server && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Archive client artifacts
+        uses: actions/upload-artifact@v2
+        with:
+            name: 'build-artifact'
+            path: ./apps/zelda-client/build
+
+      # - name: Patch version
+      #   # if: github.event_name == 'release'
+      #   run: |
+      #     git config --local user.email "natewilcox@gmail.com"
+      #     git config --local user.name "GitHub Action"
+
+      #     npm version patch -m "Automated version bump [skip ci]"
+      #     git push
+
+
+  aws-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: 'build-artifact'
+
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'us-east-2'
+
+    - name: Copy files to the S3 bucket
+      run: |
+        aws s3 sync ./apps/zelda-client/build s3://zelda.natewilcox.io --acl=private --delete
+
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/index.html"
