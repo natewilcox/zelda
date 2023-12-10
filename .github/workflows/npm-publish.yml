@@ -13,7 +13,7 @@ jobs:
       - run: npm run -w @natewilcox/zelda-shared build
       - run: npm run -w @natewilcox/zelda-client build
       - run: npm run -w @natewilcox/zelda-server build
-      - run: ls -la ./apps/zelda-server/build
+      - run: ls -la ./apps/zelda-server
       - name: Publish Server to NPM
         run: cd ./apps/zelda-server && npm publish --access public
         env:
