@@ -30,14 +30,13 @@ jobs:
             name: 'build-artifact'
             path: ./apps/zelda-client/build
 
-      # - name: Patch version
-      #   # if: github.event_name == 'release'
-      #   run: |
-      #     git config --local user.email "natewilcox@gmail.com"
-      #     git config --local user.name "GitHub Action"
+      - name: Patch Server version
+        run: |
+          git config --local user.email "natewilcox@gmail.com"
+          git config --local user.name "GitHub Action"
 
-      #     npm version patch -m "Automated version bump [skip ci]"
-      #     git push
+          npm -w @natewilcox/zelda-server version patch -m "Automated version bump [skip ci]"
+          git push
 
 
   aws-deploy:
