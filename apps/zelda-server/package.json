@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-server",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Server application for zelda multiplayer game",
   "main": "build/main.js",
   "types": "build/main.d.ts",
