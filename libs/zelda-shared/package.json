@@ -1,0 +1,31 @@
+{
+  "name": "@natewilcox/zelda-shared",
+  "version": "0.0.1",
+  "description": "Shared compoents for Zelda game",
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
+  "files": [
+    "build/**/*"
+  ],
+  "scripts": {
+    "clean": "npx rimraf build && npx rimraf tsconfig.tsbuildinfo",
+    "build": "tsc",
+    "postbuild": "cp package.json README.md ./build",
+    "build:watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "phaser",
+    "game"
+  ],
+  "author": "Nathan Wilcox",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natewilcox/zelda.git"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "colyseus.js": "^0.15.14",
+    "phaser": "^3.70.0"
+  }
+}

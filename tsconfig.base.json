@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES2016",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "lib": ["es6", "dom"],
+        "strict": true,
+        "allowJs": true,
+        "strictNullChecks": false,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "useDefineForClassFields": false,
+        "declaration": true
+    },
+    "exclude": ["node_modules"]
+}
+  

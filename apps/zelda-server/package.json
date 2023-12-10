@@ -1,0 +1,39 @@
+{
+  "name": "@natewilcox/zelda-server",
+  "version": "0.0.2",
+  "description": "Server application for zelda multiplayer game",
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
+  "scripts": {
+    "clean": "npx rimraf build && npx rimraf tsconfig.tsbuildinfo",
+    "loadtest": "tsx loadtest/example.ts --room my_room --numClients 2",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "test": "mocha -r tsx test/**_test.ts --exit --timeout 15000"
+  },
+  "author": "Nathan Wilcox",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natewilcox/zelda-server.git"
+  },
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  },
+  "devDependencies": {
+    "@colyseus/testing": "^0.15.0",
+    "@types/mocha": "^10.0.1",
+    "mocha": "^10.2.0",
+    "rimraf": "^5.0.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@natewilcox/zelda-shared": "*",
+    "@colyseus/command": "^0.2.1",
+    "@geckos.io/phaser-on-nodejs": "^1.2.8",
+    "colyseus": "^0.15.8",
+    "phaser": "~3.55.2"
+  }
+}

@@ -1,0 +1,1 @@
+export const SceneEvents = new Phaser.Events.EventEmitter();

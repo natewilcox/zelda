@@ -1,0 +1,50 @@
+# Ignore source code
+./src
+src
+/src
+/.cache
+.cache
+
+./parcel-cache
+parcel-cache
+/parcel-cache
+
+# Ignore node modules
+./node_modules
+
+# Ignore Git related files
+.git
+.gitignore
+
+# Ignore environment files
+.env
+
+# Ignore log files
+npm-debug.log
+yarn-error.logdddddddd
+
+# Ignore IDE specific files
+.vscode
+.idea
+
+# Ignore test and coverage reports
+__tests__
+coverage
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
+
+tsconfig.json
+tsconfig.tsbuildinfo
+package-lock.json
+.npmignore
+.github
+
+./tiled_projects
+tiled_projects
+/tiled_projects
+
+./texturepacker_projects
+texturepacker_projects
+/texturepacker_projects
