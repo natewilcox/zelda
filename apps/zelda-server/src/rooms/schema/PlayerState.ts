@@ -1,6 +1,7 @@
 import { Schema, type } from "@colyseus/schema";
+import { IPlayerState } from "@natewilcox/zelda-shared";
 
-export class ServerObjectState extends Schema {
+export class PlayerState extends Schema implements IPlayerState {
   
   @type('number')
   id: number;

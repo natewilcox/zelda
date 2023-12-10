@@ -1,8 +1,8 @@
-import * as Nathan from "@natewilcox/phaser-nathan";
+import type { GameObject, Component } from "@natewilcox/nathan-core";
 
-export default class KeyboardInputComponent implements Nathan.Component {
+export class KeyboardInputComponent implements Component {
 
-    private go!: Phaser.GameObjects.GameObject & Nathan.GameObject;
+    private go!: Phaser.GameObjects.GameObject & GameObject;
 
     private leftKey!: Phaser.Input.Keyboard.Key;
     private rightKey!: Phaser.Input.Keyboard.Key;
@@ -23,7 +23,7 @@ export default class KeyboardInputComponent implements Nathan.Component {
         });
     }
 
-    init(go: Phaser.GameObjects.GameObject & Nathan.GameObject) {
+    init(go: Phaser.GameObjects.GameObject & GameObject) {
         this.go = go;
     }
     

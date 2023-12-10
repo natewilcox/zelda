@@ -24,6 +24,10 @@ export class HUD extends Nathan.Scene {
 
     handleStatechange({ name } : { name: string }) {
 
+        if(this.handle) {
+            this.handle.destroy();
+        }
+        
         this.handle = this.add.text(0, 0, name, { fontFamily: 'Arial', fontSize: 24, color: '#ffffff' });
     }
 }

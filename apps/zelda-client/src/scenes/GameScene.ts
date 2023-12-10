@@ -1,16 +1,17 @@
 import 'phaser';
-import * as Nathan from '@natewilcox/phaser-nathan';
 import { animateFog, createGameFog, createGameMap } from '../utils/MapUtils';
 import { configureResize } from '../utils/SceneUtils';
 import { createPlayer } from '../utils/PlayerUtils';
-import KeyboardInputComponent from '../components/KeyboardInputComponent';
+import { KeyboardInputComponent } from '../components/KeyboardInputComponent';
 import { Link } from '../characters/Link';
 import { SceneEvents } from '../utils/SceneEvents';
-import { RoomState, ClientMessages } from '@natewilcox/zelda-shared';
+import { IRoomState, ClientMessages } from '@natewilcox/zelda-shared';
+import { ComponentService } from '@natewilcox/nathan-core';
+import { Scene, ServerService } from '@natewilcox/phaser-nathan';
 
-export class GameScene extends Nathan.Scene {
+export class GameScene extends Scene {
  
-    SERVER: Nathan.ServerService<RoomState, ClientMessages>;
+    SERVER: ServerService<IRoomState, ClientMessages>;
 
     animatedTiles: any;
     map: Phaser.Tilemaps.Tilemap;
@@ -18,7 +19,7 @@ export class GameScene extends Nathan.Scene {
     
     link: Link;
     
-    sceneComponents: Nathan.ComponentService = new Nathan.ComponentService();;
+    sceneComponents: ComponentService = new ComponentService();;
 
     constructor () {
         super('game');
@@ -52,6 +53,20 @@ export class GameScene extends Nathan.Scene {
 
             SceneEvents.emit('onstatechange', {
                 name: room.id
+            });
+
+            //ping server
+            console.log("pinging server...");
+            this.SERVER.send(ClientMessages.SendMessage, {
+                msg: "Hi! I'm a client!"
+            });
+
+            this.SERVER.on(ClientMessages.SendMessage, (message) => {
+                console.log("received message from server", message);
+
+                SceneEvents.emit('onstatechange', {
+                    name: "Connection established!"
+                });
             });
         }
         catch(e) {

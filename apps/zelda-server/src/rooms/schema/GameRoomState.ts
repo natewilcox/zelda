@@ -1,8 +1,9 @@
 import { ArraySchema, Schema, type } from "@colyseus/schema";
-import { ServerObjectState } from "./PlayerState";
+import { PlayerState } from "./PlayerState";
+import { IRoomState } from "@natewilcox/zelda-shared";
 
-export class GameRoomState extends Schema {
+export class GameRoomState extends Schema implements IRoomState {
 
-    @type([ServerObjectState])
-    serverObjects = new ArraySchema<ServerObjectState>();
+    @type([PlayerState])
+    players = new ArraySchema<PlayerState>();
 }

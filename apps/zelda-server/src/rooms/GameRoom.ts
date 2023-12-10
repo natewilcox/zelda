@@ -4,13 +4,16 @@ import { SimulationScene } from "../scenes/SimulationScene";
 import { JoinCommand } from "../commands/JoinCommand";
 import { LeaveCommand } from "../commands/LeaveCommand";
 import { Dispatcher } from "@colyseus/command";
+import { ClientMessages } from "@natewilcox/zelda-shared";
+import { ClientService } from "@natewilcox/colyseus-nathan";
 
 export class GameRoom extends Room<GameRoomState> {
 
     game: Phaser.Game;
     maxClients = 4;
     dispatcher: Dispatcher<GameRoom> = new Dispatcher(this);
-
+    CLIENT: ClientService<ClientMessages>;
+    
     onCreate () {
         console.info("Room created");
   
@@ -43,6 +46,16 @@ export class GameRoom extends Room<GameRoomState> {
         this.game = new Phaser.Game(config);
         this.game.scene.add('SimulationScene', SimulationScene, true);   
 
+        //test connection to client
+        console.log("listening for messages from client.");
+        this.CLIENT = new ClientService(this);
+        this.CLIENT.on(ClientMessages.SendMessage, (client, message) => {
+            console.log("received message from client", client.sessionId, message);
+
+            this.CLIENT.send(ClientMessages.SendMessage, {
+                msg: "Hi! I'm a server!"
+            });
+        });
     }
 
     onJoin (client: Client, options: any) {

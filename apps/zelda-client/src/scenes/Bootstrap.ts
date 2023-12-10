@@ -1,12 +1,11 @@
-import * as Nathan from "@natewilcox/phaser-nathan"
-import { createLinkAnimations } from "../animations/LinkAnimations";
 import 'dotenv/config'
-import { RoomState } from "../types/RoomState";
-import { Messages } from "../types/Messages";
+import { createLinkAnimations } from "../animations/LinkAnimations";
+import { ClientMessages, IRoomState } from "@natewilcox/zelda-shared";
+import { ServerService } from '@natewilcox/phaser-nathan';
 
 export class Bootstrap extends Phaser.Scene{
 
-    private SERVER: Nathan.ServerService<RoomState, Messages>;
+    private SERVER: ServerService<IRoomState, ClientMessages>;
 
     constructor () {
         super('bootstrap');
@@ -14,7 +13,7 @@ export class Bootstrap extends Phaser.Scene{
         const url = `${process.env.HOST}`;
         console.log(`Connecting to: ${url}`);
         
-        this.SERVER = new Nathan.ServerService(url);
+        this.SERVER = new ServerService(url);
     }
 
     preload () {

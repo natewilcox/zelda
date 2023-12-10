@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-server",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Server application for zelda multiplayer game",
   "main": "build/main.js",
   "types": "build/main.d.ts",
@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@natewilcox/zelda-shared": "*",
+    "@natewilcox/colyseus-nathan": "^0.0.1",
+    "@natewilcox/nathan-core": "^0.0.1",
     "@colyseus/command": "^0.2.1",
     "@geckos.io/phaser-on-nodejs": "^1.2.8",
     "colyseus": "^0.15.8",

@@ -13,7 +13,8 @@
     "url": "https://github.com/natewilcox/zelda-game.git"
   },
   "dependencies": {
-    "@natewilcox/phaser-nathan": "^0.0.4",
+    "@natewilcox/nathan-core": "^0.0.1",
+    "@natewilcox/phaser-nathan": "^0.0.5",
     "@natewilcox/zelda-shared": "*",
     "buffer": "^6.0.3",
     "dotenv": "^16.3.1",

@@ -1,4 +1,4 @@
-import * as Nathan from "@natewilcox/phaser-nathan";
+import { StateMachine } from "@natewilcox/nathan-core";
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
 
@@ -8,7 +8,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     speed: number;
     dir: Phaser.Math.Vector2;
 
-    stateMachine: Nathan.StateMachine;
+    stateMachine: StateMachine;
 
     constructor(scene: Phaser.Scene, x: number, y: number, id: number, name: string, texture: string) {
         super(scene, x, y, texture);
@@ -19,7 +19,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
         this.speed = 100;
         this.dir = new Phaser.Math.Vector2();
 
-        this.stateMachine = new Nathan.StateMachine(this, 'character_fsm');
+        this.stateMachine = new StateMachine(this, 'character_fsm');
 
         scene.add.existing(this);
         scene.physics.world.enable(this);
