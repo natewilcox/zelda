@@ -4,8 +4,7 @@
   "description": "A zelda client built in phaser using colyseus for multiplayer gaming",
   "scripts": {
     "start": "parcel index.html --port 8080 --dist-dir build",
-    "build": "parcel build index.html --dist-dir build",
-    "postbuild": "cp package.json README.md ./build"
+    "build": "parcel build index.html --dist-dir build"
   },
   "author": "Nathan Wilcox",
   "license": "GPL-3.0",
