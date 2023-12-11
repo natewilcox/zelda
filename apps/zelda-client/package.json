@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-client",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A zelda client built in phaser using colyseus for multiplayer gaming",
   "scripts": {
     "start": "parcel index.html --port 8080 --dist-dir build",

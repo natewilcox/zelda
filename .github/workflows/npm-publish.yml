@@ -19,6 +19,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish Library to NPM
+        run: cd ./apps/zelda-shared && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish Client to NPM
+        run: cd ./apps/zelda-client && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish Server to NPM
         run: cd ./apps/zelda-server && npm publish --access public
         env:
@@ -29,6 +39,22 @@ jobs:
         with:
             name: 'build-artifact'
             path: ./apps/zelda-client/build
+
+      - name: Patch Library version
+        run: |
+          git config --local user.email "natewilcox@gmail.com"
+          git config --local user.name "GitHub Action"
+
+          npm -w @natewilcox/zelda-shared version patch -m "Automated version bump [skip ci]"
+          git push
+
+      - name: Patch Client version
+        run: |
+          git config --local user.email "natewilcox@gmail.com"
+          git config --local user.name "GitHub Action"
+
+          npm -w @natewilcox/zelda-client version patch -m "Automated version bump [skip ci]"
+          git push
 
       - name: Patch Server version
         run: |
