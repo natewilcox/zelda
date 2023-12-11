@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-shared",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Shared compoents for Zelda game",
   "main": "build/main.js",
   "types": "build/main.d.ts",
