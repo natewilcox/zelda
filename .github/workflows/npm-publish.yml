@@ -20,7 +20,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish Library to NPM
-        run: cd ./apps/zelda-shared && npm publish --access public
+        run: cd ./libs/zelda-shared && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
