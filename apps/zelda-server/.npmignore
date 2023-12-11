@@ -11,6 +11,8 @@ parcel-cache
 
 # Ignore node modules
 ./node_modules
+/node_modules
+node_modules
 
 # Ignore Git related files
 .git
