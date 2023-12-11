@@ -46,7 +46,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           npm -w @natewilcox/zelda-shared version patch -m "Automated version bump [skip ci]"
-          git push origin HEAD:master
+          git push origin HEAD:main
 
       - name: Patch Client version
         run: |
@@ -54,7 +54,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           npm -w @natewilcox/zelda-client version patch -m "Automated version bump [skip ci]"
-          git push origin HEAD:master
+          git push origin HEAD:main
 
       - name: Patch Server version
         run: |
@@ -62,7 +62,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           npm -w @natewilcox/zelda-server version patch -m "Automated version bump [skip ci]"
-          git push origin HEAD:master
+          git push origin HEAD:main
 
 
   aws-deploy:
