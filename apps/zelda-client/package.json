@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@natewilcox/nathan-core": "^0.0.1",
-    "@natewilcox/phaser-nathan": "^0.0.5",
+    "@natewilcox/phaser-nathan": "^0.0.8",
     "@natewilcox/zelda-shared": "*",
     "buffer": "^6.0.3",
     "dotenv": "^16.3.1",
