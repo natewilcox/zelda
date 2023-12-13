@@ -1,17 +1,16 @@
 import 'phaser';
+import * as Nathan from '@natewilcox/phaser-nathan';
 import { animateFog, createGameFog, createGameMap } from '../utils/MapUtils';
-import { configureResize } from '../utils/SceneUtils';
 import { createPlayer } from '../utils/PlayerUtils';
 import { KeyboardInputComponent } from '../components/KeyboardInputComponent';
 import { Link } from '../characters/Link';
-import { SceneEvents } from '../utils/SceneEvents';
 import { IRoomState, ClientMessages } from '@natewilcox/zelda-shared';
 import { ComponentService } from '@natewilcox/nathan-core';
-import { Scene, ServerService } from '@natewilcox/phaser-nathan';
+import { SceneEvents } from '../utils/SceneEvents';
 
-export class GameScene extends Scene {
+export class GameScene extends Nathan.Scene {
  
-    SERVER: ServerService<IRoomState, ClientMessages>;
+    SERVER: Nathan.ServerService<IRoomState, ClientMessages>;
 
     animatedTiles: any;
     map: Phaser.Tilemaps.Tilemap;
@@ -29,11 +28,12 @@ export class GameScene extends Scene {
         this.load.scenePlugin('AnimatedTiles', 'js/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
     }
 
-    async create(config: any) { 
+    async create(config?: any) { 
+
+        super.create();
+        Nathan.resizeToScreen(this, true, 800, 800);
 
         this.SERVER = config.SERVER;
-
-        configureResize(this);
 
         this.map = createGameMap(this, "sample");
         this.fog = createGameFog(this, this.map);

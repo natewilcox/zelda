@@ -2,19 +2,31 @@
   "name": "@natewilcox/zelda-client",
   "version": "0.0.22",
   "description": "A zelda client built in phaser using colyseus for multiplayer gaming",
-  "scripts": {
-    "start": "parcel index.html --port 8080 --dist-dir build",
-    "build": "parcel build index.html --dist-dir build"
-  },
   "author": "Nathan Wilcox",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/natewilcox/zelda-game.git"
+    "url": "https://github.com/natewilcox/zelda.git"
+  },
+  "keywords": [
+    "phaser",
+    "zelda",
+    "game",
+    "typescript",
+    "colyseus",
+    "multiplayer"
+  ],
+  "staticFiles": {
+    "staticPath": "public"
+  },
+  "scripts": {
+    "start": "parcel index.html --port 8080 --dist-dir build",
+    "prebuild": "npx @natewilcox/version-meta --target=./src",
+    "build": "parcel build index.html --dist-dir build"
   },
   "dependencies": {
     "@natewilcox/nathan-core": "^0.0.1",
-    "@natewilcox/phaser-nathan": "^0.0.8",
+    "@natewilcox/phaser-nathan": "^0.0.13",
     "@natewilcox/zelda-shared": "*",
     "buffer": "^6.0.3",
     "dotenv": "^16.3.1",
@@ -22,6 +34,7 @@
     "process": "^0.11.10"
   },
   "devDependencies": {
+    "@natewilcox/version-meta": "^0.0.6",
     "@types/node": "^20.10.4",
     "crypto-browserify": "^3.12.0",
     "events": "^3.3.0",
@@ -31,8 +44,5 @@
     "path-browserify": "^1.0.1",
     "stream-browserify": "^3.0.0",
     "typescript": "^5.3.3"
-  },
-  "staticFiles": {
-    "staticPath": "public"
   }
 }

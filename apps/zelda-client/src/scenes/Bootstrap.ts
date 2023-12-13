@@ -1,9 +1,10 @@
-import 'dotenv/config'
+import 'dotenv/config';
+import * as Nathan from '@natewilcox/phaser-nathan';
 import { createLinkAnimations } from "../animations/LinkAnimations";
 import { ClientMessages, IRoomState } from "@natewilcox/zelda-shared";
 import { ServerService } from '@natewilcox/phaser-nathan';
 
-export class Bootstrap extends Phaser.Scene{
+export class Bootstrap extends Nathan.Scene{
 
     private SERVER: ServerService<IRoomState, ClientMessages>;
 

@@ -48,3 +48,7 @@ tiled_projects
 ./texturepacker_projects
 texturepacker_projects
 /texturepacker_projects
+
+.parcelrc
+.env.development
+.env.production
