@@ -1,15 +1,13 @@
 {
   "name": "@natewilcox/zelda-shared",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Shared compoents for Zelda game",
-
   "author": "Nathan Wilcox",
   "repository": {
     "type": "git",
     "url": "https://github.com/natewilcox/zelda.git"
   },
   "license": "GPL-3.0",
-
   "keywords": [
     "phaser",
     "zelda",
@@ -18,7 +16,6 @@
     "colyseus",
     "multiplayer"
   ],
-
   "main": "build/main.js",
   "types": "build/main.d.ts",
   "files": [
