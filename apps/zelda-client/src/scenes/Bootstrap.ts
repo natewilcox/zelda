@@ -4,7 +4,7 @@ import { createLinkAnimations } from "../animations/LinkAnimations";
 import { ClientMessages, IRoomState } from "@natewilcox/zelda-shared";
 import { ServerService } from '@natewilcox/phaser-nathan';
 
-export class Bootstrap extends Nathan.Scene{
+export class Bootstrap extends Nathan.Scene {
 
     private SERVER: ServerService<IRoomState, ClientMessages>;
 
@@ -19,10 +19,12 @@ export class Bootstrap extends Nathan.Scene{
 
     preload () {
 
+        //load map and tileset assets
         this.load.tilemapTiledJSON("sample", "maps/sample.json");
         this.load.image("ground_tiles", "images/tilesets/ground-extruded.png");
         this.load.image("fog", "images/fog.png");
 
+        //load character assets
         this.load.atlas("link", "characters/link.png", "characters/link.json");
     }
 

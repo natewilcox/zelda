@@ -60,10 +60,12 @@ export class GameRoom extends Room<GameRoomState> {
 
     onJoin (client: Client, options: any) {
         console.log(client.sessionId, "joined!");
+
+        //join with random x and y between 0 and 800
         this.dispatcher.dispatch(new JoinCommand(), {
             client,
-            x: 0,
-            y: 0
+            x: Math.floor(Math.random() * 800),
+            y: Math.floor(Math.random() * 600)
         });
     }
 
