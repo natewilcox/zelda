@@ -53,7 +53,7 @@ export class GameRoom extends Room<GameRoomState> {
             console.log("received message from client", client.sessionId, message);
 
             this.CLIENT.send(ClientMessages.SendMessage, {
-                msg: "Hi! I can hear you!!"
+                msg: "Hi! I can hear you!"
             });
         });
     }
