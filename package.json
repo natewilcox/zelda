@@ -2,10 +2,13 @@
   "name": "@natewilcox/zelda",
   "description": "Zelda game. Ive been working on this, or a version of this, for almost 10 years. Every time it gets a little better.",
   "version": "0.0.1",
-
   "workspaces": [
     "libs/zelda-shared",
     "apps/zelda-server",
     "apps/zelda-client"
-  ]
+  ],
+  "devDependencies": {
+    "string_decoder": "^1.3.0",
+    "vm-browserify": "^1.1.2"
+  }
 }

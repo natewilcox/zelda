@@ -25,7 +25,7 @@
     "build": "parcel build index.html --dist-dir build"
   },
   "dependencies": {
-    "@natewilcox/nathan-core": "^0.0.1",
+    "@natewilcox/nathan-core": "^0.0.6",
     "@natewilcox/phaser-nathan": "^0.0.13",
     "@natewilcox/zelda-shared": "*",
     "buffer": "^6.0.3",

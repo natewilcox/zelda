@@ -16,6 +16,7 @@ export class GameScene extends Nathan.Scene {
     map: Phaser.Tilemaps.Tilemap;
     fog: { scrollX: number, scrollY: number, ratioX: number, ratioY: number, sprite: Phaser.GameObjects.TileSprite };
     
+    state: IRoomState;
     playersList: Link[] = [];
     playerMap: Map<string, Link> = new Map();
 
@@ -37,9 +38,12 @@ export class GameScene extends Nathan.Scene {
         Nathan.resizeToScreen(this, true, 800, 800);
         this.cameras.main.setZoom(2);
 
-        //configure map and join room
         this.configureMap();
-        await this.tryJoinRoom();
+
+        //join the room and listen for player changes
+        this.state = await this.tryJoinRoom('zelda_room');
+        this.state.players.onAdd(this.addPlayer);
+        this.state.players.onRemove(this.removePlayer);
     }
 
     update(dt: number, t: number) {
@@ -76,16 +80,17 @@ export class GameScene extends Nathan.Scene {
         const { id, clientId, x, y } = playerState;
         console.log('player joined', id, clientId, x, y);
         
-        const link = createPlayer(this, 'link', x, y, 'link-stand-south');
-
+        const link = createPlayer(this, 'link', id, x, y, 'link-stand-south');
+ 
         //add the player to the list and map
         this.playersList.push(link);
         this.playerMap.set(clientId, link);
 
+        console.log(this.playerMap)
         //if the player is us, follow them
         if(clientId == this.SERVER.SessionID) {
 
-            console.log('following player');
+            console.log('following player', link.id);
             this.cameras.main.startFollow(link);
             this.sceneComponents.addComponent(link, new KeyboardInputComponent(this));
         }
@@ -102,31 +107,28 @@ export class GameScene extends Nathan.Scene {
 
         if(player) {
 
-            console.log('destroying player');
+            console.log('destroying player', player.id);
             player.destroy();
 
             this.playersList.splice(this.playersList.indexOf(player), 1);
             this.playerMap.delete(clientId);
-
+            this.sceneComponents.destroyComponents(player);
+            
             this.flashMessage(`player-${clientId}-left`);
         }
     }
 
-    private async tryJoinRoom() {
-
-        const roomName = 'zelda_room';
+    private async tryJoinRoom(roomName: string) {
 
         try {
             console.log(`joining ${roomName}`);
             const room = await this.SERVER.connect(roomName);
             console.log(`joined ${roomName}`);
 
-            const roomState: IRoomState = room.state;
-            roomState.players.onAdd(this.addPlayer);
-            roomState.players.onRemove(this.removePlayer);
+            return room.state;
         }
         catch(e) {
-            console.error(`unable to join ${roomName}. Returning to lobby`, e);
+            console.error(`unable to join ${roomName}.`, e);
         }
     }
 }
