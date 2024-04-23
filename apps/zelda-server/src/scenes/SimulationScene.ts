@@ -12,15 +12,10 @@ export class SimulationScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("simulation started"); 
+        console.log("simulation started..."); 
     }
 
 
     update(time: number, delta: number): void {
-        
-    }
-
-    private postUpdate = () => {
-
     }
 }

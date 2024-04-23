@@ -42,6 +42,7 @@
     "@natewilcox/nathan-core": "^0.0.1",
     "@colyseus/command": "^0.2.1",
     "@geckos.io/phaser-on-nodejs": "^1.2.8",
-    "colyseus": "^0.15.8"
+    "colyseus": "^0.15.8",
+    "phaser": "~3.55.2"
   }
 }
