@@ -47,8 +47,9 @@ export class GameRoom extends Room<GameRoomState> {
         this.game = new Phaser.Game(config);
         this.game.scene.add('SimulationScene', SimulationScene, true);   
 
-        console.log("listening for messages from client.");
         this.CLIENT = new ClientService(this);
+
+        console.log("Listening for client messages");
         this.CLIENT.on(ClientMessages.PatchPlayerState, this.onPlayerPatch);
     }
 
