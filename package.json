@@ -2,6 +2,9 @@
   "name": "@natewilcox/zelda",
   "description": "Zelda game. Ive been working on this, or a version of this, for almost 10 years. Every time it gets a little better.",
   "version": "0.0.1",
+  "scripts": {
+    "build": "npm run -ws build"
+  },
   "workspaces": [
     "libs/zelda-shared",
     "apps/zelda-server",

@@ -10,9 +10,7 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: npm run -w @natewilcox/zelda-shared build
-      - run: npm run -w @natewilcox/zelda-client build
-      - run: npm run -w @natewilcox/zelda-server build
+      - run: npm run build
 
       - name: Set up .npmrc file to publish to npm
         run: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
