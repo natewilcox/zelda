@@ -6,6 +6,7 @@ import { LeaveCommand } from "../commands/LeaveCommand";
 import { Dispatcher } from "@colyseus/command";
 import { ClientMessages } from "@natewilcox/zelda-shared";
 import { ClientService } from "@natewilcox/colyseus-nathan";
+import { PatchPlayerStateCommand } from "../commands/PatchPlayerStateCommand";
 
 export class GameRoom extends Room<GameRoomState> {
 
@@ -46,16 +47,9 @@ export class GameRoom extends Room<GameRoomState> {
         this.game = new Phaser.Game(config);
         this.game.scene.add('SimulationScene', SimulationScene, true);   
 
-        //test connection to client
         console.log("listening for messages from client.");
         this.CLIENT = new ClientService(this);
-        this.CLIENT.on(ClientMessages.SendMessage, (client, message) => {
-            console.log("received message from client", client.sessionId, message);
-
-            this.CLIENT.send(ClientMessages.SendMessage, {
-                msg: "Hi! I can hear you!"
-            });
-        });
+        this.CLIENT.on(ClientMessages.PatchPlayerState, this.onPlayerPatch);
     }
 
     onJoin (client: Client, options: any) {
@@ -79,5 +73,13 @@ export class GameRoom extends Room<GameRoomState> {
     onDispose() {
         console.log("room", this.roomId, "disposing...");
         this.game.destroy(false);
+    }
+    
+    onPlayerPatch = (client: Client, patch: any) => {
+
+        this.dispatcher.dispatch(new PatchPlayerStateCommand(), {
+            client, 
+            patch
+        });
     }
 }

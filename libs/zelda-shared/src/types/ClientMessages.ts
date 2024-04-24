@@ -1,3 +1,4 @@
 export enum ClientMessages {
-    SendMessage
+    SendMessage,
+    PatchPlayerState
 }

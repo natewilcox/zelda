@@ -1,4 +1,5 @@
 import { StateMachine } from "@natewilcox/nathan-core";
+import { IPlayerState } from "@natewilcox/zelda-shared";
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
 
@@ -8,6 +9,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     speed: number;
     dir: Phaser.Math.Vector2;
 
+    playerState: IPlayerState;
     stateMachine: StateMachine;
 
     constructor(scene: Phaser.Scene, x: number, y: number, id: number, name: string, texture: string) {

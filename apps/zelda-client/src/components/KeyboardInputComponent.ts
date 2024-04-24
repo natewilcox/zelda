@@ -1,7 +1,9 @@
 import type { GameObject, Component } from "@natewilcox/nathan-core";
+import { GameScene } from "../scenes/GameScene";
 
 export class KeyboardInputComponent implements Component {
 
+    private scene: GameScene;
     private go!: Phaser.GameObjects.GameObject & GameObject;
 
     private leftKey!: Phaser.Input.Keyboard.Key;
@@ -9,8 +11,10 @@ export class KeyboardInputComponent implements Component {
     private upKey!: Phaser.Input.Keyboard.Key;
     private downKey!: Phaser.Input.Keyboard.Key;
 
-    constructor(scene: Phaser.Scene) {
+    constructor(scene: GameScene) {
 
+        this.scene = scene;
+        
         //bind the controls
         this.leftKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.rightKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);

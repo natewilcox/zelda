@@ -7,6 +7,8 @@ import { Link } from '../characters/Link';
 import { IRoomState, ClientMessages, IPlayerState } from '@natewilcox/zelda-shared';
 import { ComponentService } from '@natewilcox/nathan-core';
 import { SceneEvents } from '../utils/SceneEvents';
+import { ServerControlledComponent } from '../components/ServerControlledComponent';
+import { PatchServerComponent } from '../components/PatchServerComponent';
 
 export class GameScene extends Nathan.Scene {
  
@@ -77,22 +79,28 @@ export class GameScene extends Nathan.Scene {
 
     private addPlayer = (playerState: IPlayerState) => {
 
-        const { id, clientId, x, y } = playerState;
-        console.log('player joined', id, clientId, x, y);
-        
-        const link = createPlayer(this, 'link', id, x, y, 'link-stand-south');
+        const { clientId } = playerState;
+        console.log('player joined', clientId);
+
+        const player = createPlayer(this, playerState);
  
         //add the player to the list and map
-        this.playersList.push(link);
-        this.playerMap.set(clientId, link);
+        this.playersList.push(player);
+        this.playerMap.set(clientId, player);
 
-        console.log(this.playerMap)
-        //if the player is us, follow them
+        //check if this player is me
         if(clientId == this.SERVER.SessionID) {
 
-            console.log('following player', link.id);
-            this.cameras.main.startFollow(link);
-            this.sceneComponents.addComponent(link, new KeyboardInputComponent(this));
+            //follow me and give me keyboard control
+            console.log('following player', player.id);
+            this.cameras.main.startFollow(player);
+            this.sceneComponents.addComponent(player, new KeyboardInputComponent(this));
+            this.sceneComponents.addComponent(player, new PatchServerComponent(this));
+        }
+        else {
+
+            //control this player from the server
+            this.sceneComponents.addComponent(player, new ServerControlledComponent(this));
         }
 
         this.flashMessage(`player-${clientId}-joined`);
