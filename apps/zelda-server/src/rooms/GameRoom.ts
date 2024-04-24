@@ -49,7 +49,9 @@ export class GameRoom extends Room<GameRoomState> {
 
         this.CLIENT = new ClientService(this);
 
-        console.log("Listening for client messages");
+        console.log("Listening for client messages.");
+        
+        console.log("ClientMessages.PatchPlayerState", ClientMessages.PatchPlayerState);
         this.CLIENT.on(ClientMessages.PatchPlayerState, this.onPlayerPatch);
     }
 
