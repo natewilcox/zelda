@@ -8,14 +8,13 @@ export class PatchServerComponent implements Component {
 
     private scene: GameScene;
     private character: Character;
+    
+    private patchRate: number;
+    private timer: number = 0;
 
-    private propertyMap = {
-        x: 'x',
-        y: 'y'
-    };
-
-    constructor(scene: GameScene) {
+    constructor(scene: GameScene, patchRate: number) {
         this.scene = scene;
+        this.patchRate = 1000 / patchRate;
     }
 
     init(go: Phaser.GameObjects.GameObject & GameObject) {
@@ -26,6 +25,13 @@ export class PatchServerComponent implements Component {
 
     update(dt: number, t: number) {
        
+        //check if the patch rate timer has been met before patching server state
+        this.timer += t;
+        if(this.timer < this.patchRate) return;
+
+        //reset the timer and send patch info to the server
+        this.timer = 0;
+
         const patch = this.createPatch();
 
         //console.log(`patching player ${this.character.id}`, patch);

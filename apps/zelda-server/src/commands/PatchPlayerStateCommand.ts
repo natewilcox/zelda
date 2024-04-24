@@ -15,6 +15,8 @@ export class PatchPlayerStateCommand extends Command<GameRoom, Payload> {
 
         if (player) {
 
+            console.log(`patching player ${player.id}`, patch);
+            
             //apply the patch to the player state
             if(patch.x) player.x = patch.x;
             if(patch.y) player.y = patch.y;

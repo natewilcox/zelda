@@ -95,7 +95,7 @@ export class GameScene extends Nathan.Scene {
             console.log('following player', player.id);
             this.cameras.main.startFollow(player);
             this.sceneComponents.addComponent(player, new KeyboardInputComponent(this));
-            this.sceneComponents.addComponent(player, new PatchServerComponent(this));
+            this.sceneComponents.addComponent(player, new PatchServerComponent(this, 1));
         }
         else {
 
