@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-client",
-  "version": "0.0.35",
+  "version": "0.0.37",
   "description": "A zelda client built in phaser using colyseus for multiplayer gaming",
   "author": "Nathan Wilcox",
   "license": "GPL-3.0",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@natewilcox/nathan-core": "^0.0.6",
     "@natewilcox/phaser-nathan": "^0.0.13",
-    "@natewilcox/zelda-shared": "*",
+    "@natewilcox/zelda-shared": "0.0.23",
     "buffer": "^6.0.3",
     "dotenv": "^16.3.1",
     "phaser": "^3.70.0",

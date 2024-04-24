@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-server",
-  "version": "0.0.29",
+  "version": "0.0.31",
   "description": "Server application for zelda multiplayer game",
   "author": "Nathan Wilcox",
   "license": "GPL-3.0",
@@ -37,7 +37,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@natewilcox/zelda-shared": "*",
+    "@natewilcox/zelda-shared": "0.0.23",
     "@natewilcox/colyseus-nathan": "^0.0.1",
     "@natewilcox/nathan-core": "^0.0.1",
     "@colyseus/command": "^0.2.1",
