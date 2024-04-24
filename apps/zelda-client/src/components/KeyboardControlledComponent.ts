@@ -1,7 +1,7 @@
 import type { GameObject, Component } from "@natewilcox/nathan-core";
 import { GameScene } from "../scenes/GameScene";
 
-export class KeyboardInputComponent implements Component {
+export class KeyboardControlledComponent implements Component {
 
     private scene: GameScene;
     private go!: Phaser.GameObjects.GameObject & GameObject;

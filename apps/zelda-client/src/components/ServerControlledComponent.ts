@@ -5,27 +5,30 @@ import { GameScene } from "../scenes/GameScene";
 export class ServerControlledComponent implements Component {
 
     private scene: GameScene;
-    private go: Phaser.GameObjects.GameObject & GameObject;
+    private player: Link;
 
     constructor(scene: GameScene) {
         this.scene = scene;
     }
 
     init(go: Phaser.GameObjects.GameObject & GameObject) {
-        this.go = go;
 
-        if(this.go instanceof Link) {
-            
-            //server controlled player
-            console.log(`server controlled player ${this.go.id}`)
+        this.player = go as Link;
 
-            const link = this.go as Link;
-            const playerState = link.playerState;
+        //server controlled player
+        console.log(`server controlled player ${this.player.id}`);
+    }
 
-            playerState.onChange(() => {
-                link.x = playerState.x;
-                link.y = playerState.y;
-            });
-        }
+    update(dt: number, t: number) {
+
+        //get the direction the player should walk
+        let dx = this.player.playerState.x - this.player.x;
+        let dy = this.player.playerState.y - this.player.y;
+
+        //if the player is close enough to the target, stop moving
+        if(dx < 1 && dx > -1) dx = 0;
+        if(dy < 1 && dy > -1) dy = 0;
+
+        this.player.dir.setTo(dx, dy).normalize().scale(this.player.speed);
     }
 }

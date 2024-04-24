@@ -2,7 +2,7 @@ import 'phaser';
 import * as Nathan from '@natewilcox/phaser-nathan';
 import { animateFog, createGameFog, createGameMap } from '../utils/MapUtils';
 import { createPlayer } from '../utils/PlayerUtils';
-import { KeyboardInputComponent } from '../components/KeyboardInputComponent';
+import { KeyboardControlledComponent } from '../components/KeyboardControlledComponent';
 import { Link } from '../characters/Link';
 import { IRoomState, ClientMessages, IPlayerState } from '@natewilcox/zelda-shared';
 import { ComponentService } from '@natewilcox/nathan-core';
@@ -91,11 +91,11 @@ export class GameScene extends Nathan.Scene {
         //check if this player is me
         if(clientId == this.SERVER.SessionID) {
 
-            //follow me and give me keyboard control
+            //follow me, control with keyboard and patch server with updates
             console.log('following player', player.id);
             this.cameras.main.startFollow(player);
-            this.sceneComponents.addComponent(player, new KeyboardInputComponent(this));
-            this.sceneComponents.addComponent(player, new PatchServerComponent(this, 1));
+            this.sceneComponents.addComponent(player, new KeyboardControlledComponent(this));
+            this.sceneComponents.addComponent(player, new PatchServerComponent(this, 20));
         }
         else {
 

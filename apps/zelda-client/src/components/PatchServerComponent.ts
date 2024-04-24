@@ -1,5 +1,4 @@
 import type { GameObject, Component } from "@natewilcox/nathan-core";
-import { Link } from "../characters/Link";
 import { GameScene } from "../scenes/GameScene";
 import { ClientMessages } from "@natewilcox/zelda-shared";
 import { Character } from "../characters/Character";

@@ -37,7 +37,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@natewilcox/zelda-shared": "0.0.23",
+    "@natewilcox/zelda-shared": "^0.0.24",
     "@natewilcox/colyseus-nathan": "^0.0.1",
     "@natewilcox/nathan-core": "^0.0.1",
     "@colyseus/command": "^0.2.1",
