@@ -1,11 +1,11 @@
 import type { GameObject, Component } from "@natewilcox/nathan-core";
-import { Link } from "../characters/Link";
 import { GameScene } from "../scenes/GameScene";
+import { Player } from "../objects/Player";
 
 export class ServerControlledComponent implements Component {
 
     private scene: GameScene;
-    private player: Link;
+    private player: Player;
 
     constructor(scene: GameScene) {
         this.scene = scene;
@@ -13,7 +13,7 @@ export class ServerControlledComponent implements Component {
 
     init(go: Phaser.GameObjects.GameObject & GameObject) {
 
-        this.player = go as Link;
+        this.player = go as Player;
 
         //server controlled player
         console.log(`server controlled player ${this.player.id}`);

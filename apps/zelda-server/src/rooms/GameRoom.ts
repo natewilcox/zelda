@@ -6,53 +6,36 @@ import { LeaveCommand } from "../commands/LeaveCommand";
 import { Dispatcher } from "@colyseus/command";
 import { ClientMessages } from "@natewilcox/zelda-shared";
 import { ClientService } from "@natewilcox/colyseus-nathan";
-import { PatchPlayerStateCommand } from "../commands/PatchPlayerStateCommand";
+import { SimulationEventEmitter } from "../utils/SimulationEvents";
 
 export class GameRoom extends Room<GameRoomState> {
 
-    game: Phaser.Game;
-    maxClients = 4;
+    simulation: Phaser.Game;
     dispatcher: Dispatcher<GameRoom> = new Dispatcher(this);
     CLIENT: ClientService<ClientMessages>;
     
+    maxClients = 4;
+    PATCH = 20;
+    FPS = 20;
+
     onCreate () {
         console.info("Room created");
-  
-        const PATCH = 20;
-        const FPS = 30;
-
-        (global as any).phaserOnNodeFPS = FPS;
-
-        this.setPatchRate(1000/PATCH);
-        this.setState(new GameRoomState());
-
-        const config = {
-            type: Phaser.HEADLESS,
-            width: 800,
-            height: 600,
-            fps: {
-                target: FPS,
-                forceSetTimeOut: true
-            },
-            physics: {
-                default: 'arcade',
-                arcade: {
-                    gravity: { y: 0, x: 0 }
-                }
-            }
-        }
-
-        console.log("Starting simluation scene");
-
-        this.game = new Phaser.Game(config);
-        this.game.scene.add('SimulationScene', SimulationScene, true);   
 
         this.CLIENT = new ClientService(this);
+        this.configureRoom();
 
-        console.log("Listening for client messages.");
-        console.log("ClientMessages.SendMessage", ClientMessages.SendMessage);
-        console.log("ClientMessages.PatchPlayerState", ClientMessages.PatchPlayerState);
-        this.CLIENT.on(ClientMessages.PatchPlayerState, this.onPlayerPatch);
+        //create a new simulation
+        this.simulation = this.createSimulation(); 
+        
+        //start the simulation
+        console.log(`starting simulation...`);
+        this.simulation.scene.add('simulation', SimulationScene, true, { 
+            room: this, 
+            dispatcher: this.dispatcher,
+            CLIENT: this.CLIENT 
+        }); 
+
+        console.log(`simulation started`);
     }
 
     onJoin (client: Client, options: any) {
@@ -75,14 +58,42 @@ export class GameRoom extends Room<GameRoomState> {
 
     onDispose() {
         console.log("room", this.roomId, "disposing...");
-        this.game.destroy(false);
-    }
-    
-    onPlayerPatch = (client: Client, patch: any) => {
+        
+        SimulationEventEmitter.removeAllListeners();
 
-        this.dispatcher.dispatch(new PatchPlayerStateCommand(), {
-            client, 
-            patch
-        });
+        //stop the simulation and destroy it
+        this.simulation.destroy(false);
+        this.simulation = null;
+
+        console.log(`simulation destroyed`);
+    }
+
+    private configureRoom() {
+        this.setPatchRate(1000/this.PATCH);
+        this.setState(new GameRoomState());
+    }
+
+    private createSimulation() {
+
+        (global as any).phaserOnNodeFPS = this.FPS;
+
+        const config = {
+            type: Phaser.HEADLESS,
+            width: 800,
+            height: 600,
+            fps: {
+                target: this.FPS,
+                forceSetTimeOut: true
+            },
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 0, x: 0 }
+                }
+            }
+        }
+
+        const simulation = new Phaser.Game(config); 
+        return simulation;
     }
 }

@@ -1,14 +1,14 @@
 import 'phaser';
 import * as Nathan from '@natewilcox/phaser-nathan';
 import { animateFog, createGameFog, createGameMap } from '../utils/MapUtils';
-import { createPlayer } from '../utils/PlayerUtils';
 import { KeyboardControlledComponent } from '../components/KeyboardControlledComponent';
-import { Link } from '../characters/Link';
 import { IRoomState, ClientMessages, IPlayerState } from '@natewilcox/zelda-shared';
 import { ComponentService } from '@natewilcox/nathan-core';
 import { SceneEvents } from '../utils/SceneEvents';
-import { ServerControlledComponent } from '../components/ServerControlledComponent';
 import { PatchServerComponent } from '../components/PatchServerComponent';
+import { createPlayer } from '../utils/PlayerUtils';
+import { ServerControlledComponent } from '../components/ServerControlledComponent';
+import { Player } from '../objects/Player';
 
 export class GameScene extends Nathan.Scene {
  
@@ -19,8 +19,8 @@ export class GameScene extends Nathan.Scene {
     fog: { scrollX: number, scrollY: number, ratioX: number, ratioY: number, sprite: Phaser.GameObjects.TileSprite };
     
     state: IRoomState;
-    playersList: Link[] = [];
-    playerMap: Map<string, Link> = new Map();
+    playersList: Player[] = [];
+    playerMap: Map<string, Player> = new Map();
 
     sceneComponents: ComponentService = new ComponentService();
 
@@ -79,8 +79,8 @@ export class GameScene extends Nathan.Scene {
 
     private addPlayer = (playerState: IPlayerState) => {
 
-        const { clientId } = playerState;
-        console.log('player joined', clientId);
+        const { clientId, id } = playerState;
+        console.log(`adding player ${id} to the game`);
 
         const player = createPlayer(this, playerState);
  
@@ -92,7 +92,7 @@ export class GameScene extends Nathan.Scene {
         if(clientId == this.SERVER.SessionID) {
 
             //follow me, control with keyboard and patch server with updates
-            console.log('following player', player.id);
+            console.log(`player ${id} is me. follow me`);
             this.cameras.main.startFollow(player);
             this.sceneComponents.addComponent(player, new KeyboardControlledComponent(this));
             this.sceneComponents.addComponent(player, new PatchServerComponent(this, 20));

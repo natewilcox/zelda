@@ -1,12 +1,12 @@
 import type { GameObject, Component } from "@natewilcox/nathan-core";
 import { GameScene } from "../scenes/GameScene";
 import { ClientMessages } from "@natewilcox/zelda-shared";
-import { Character } from "../characters/Character";
+import { Player } from "../objects/Player";
 
 export class PatchServerComponent implements Component {
 
     private scene: GameScene;
-    private character: Character;
+    private player: Player;
     
     private patchRate: number;
     private timer: number = 0;
@@ -18,8 +18,8 @@ export class PatchServerComponent implements Component {
 
     init(go: Phaser.GameObjects.GameObject & GameObject) {
 
-        this.character = go as Character;
-        console.log(`patching player ${this.character.id}`);
+        this.player = go as Player;
+        console.log(`player ${this.player.id} is controlled locally.`);
     }
 
     update(dt: number, t: number) {
@@ -41,8 +41,12 @@ export class PatchServerComponent implements Component {
 
         //generate a patch based on changes to state
         const patch: any = {};
-        if(this.character.playerState.x !== this.character.x) patch.x = this.character.x;
-        if(this.character.playerState.y !== this.character.y) patch.y = this.character.y;
+        
+        //add position if changed
+        if(this.player.x !== this.player.playerState.x || this.player.y !== this.player.playerState.y) {
+            patch.x = this.player.x;
+            patch.y = this.player.y;
+        }
 
         return patch;
     }

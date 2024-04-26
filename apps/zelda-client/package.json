@@ -27,10 +27,10 @@
   "dependencies": {
     "@natewilcox/nathan-core": "^0.0.6",
     "@natewilcox/phaser-nathan": "^0.0.13",
-    "@natewilcox/zelda-shared": "^0.0.24",
+    "@natewilcox/zelda-shared": "*",
     "buffer": "^6.0.3",
     "dotenv": "^16.3.1",
-    "phaser": "^3.70.0",
+    "phaser": "^3.55.2",
     "process": "^0.11.10"
   },
   "devDependencies": {

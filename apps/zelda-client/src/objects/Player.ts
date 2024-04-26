@@ -1,15 +1,40 @@
-import { Character } from "./Character";
+import { StateMachine } from "@natewilcox/nathan-core";
+import { IPlayerState } from "@natewilcox/zelda-shared";
 
-export class Link extends Character {
+export class Player extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene: Phaser.Scene, x: number, y: number, id: number, name: string) {
-        super(scene, x, y, id, name, 'link-stand-south');
+    id: number;
+    name: string;
+    
+    speed: number;
+    dir: Phaser.Math.Vector2;
+
+    playerState: IPlayerState;
+    stateMachine: StateMachine;
+
+    constructor(scene: Phaser.Scene, x: number, y: number, id: number, name: string, texture: string) {
+        super(scene, x, y, texture);
+
+        this.id = id;
+        this.name = name;
+
+        this.speed = 100;
+        this.dir = new Phaser.Math.Vector2();
+
+        this.stateMachine = new StateMachine(this, 'character_fsm');
+
+        scene.add.existing(this);
+        scene.physics.world.enable(this);
 
         this.stateMachine
-            .addState("walking", {
-                onUpdate: this.onWalkingUpdate
-            })
-            .setState("walking");
+        .addState("walking", {
+            onUpdate: this.onWalkingUpdate
+        })
+        .setState("walking");
+    }
+
+    update(dt: number) {
+        this.stateMachine.update(dt);
     }
 
     private onWalkingUpdate() {

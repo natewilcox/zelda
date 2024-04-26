@@ -1,6 +1,7 @@
 import { Command } from "@colyseus/command";
 import { GameRoom } from "../rooms/GameRoom";
 import { PlayerState } from "../rooms/schema/PlayerState";
+import { SimulationEventEmitter, SimulationEvents } from "../utils/SimulationEvents";
 
 type Payload = {
     client: any,
@@ -8,7 +9,7 @@ type Payload = {
     y: number
 };
 
-let id = 0;
+let id_index = 0;
 
 export class JoinCommand extends Command<GameRoom, Payload> {
 
@@ -17,9 +18,11 @@ export class JoinCommand extends Command<GameRoom, Payload> {
         console.log("JoinCommand executed");
 
         //create a new player state for the client
-        const playerState = new PlayerState(id++, client.id, x, y);
+        const playerState = new PlayerState(++id_index, client.id, x, y);
 
         //add the player to the room state
         this.state.players.push(playerState);
+
+        SimulationEventEmitter.emit(SimulationEvents.PlayerJoined, playerState);
     }
 }
