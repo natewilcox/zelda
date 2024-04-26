@@ -1,6 +1,6 @@
 {
   "name": "@natewilcox/zelda-client",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "A zelda client built in phaser using colyseus for multiplayer gaming",
   "author": "Nathan Wilcox",
   "license": "GPL-3.0",
